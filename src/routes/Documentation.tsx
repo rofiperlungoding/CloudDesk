@@ -6,6 +6,45 @@ import { Button } from '../components/ui/Button';
 import { Tabs } from '../components/ui/Tabs';
 
 export function Documentation() {
+  const [activeSection, setActiveSection] = React.useState('getting-started');
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Find the entry that is most visible
+        const visibleEntries = entries.filter(entry => entry.isIntersecting);
+        
+        if (visibleEntries.length > 0) {
+          // Sort by intersection ratio and position
+          const mostVisible = visibleEntries.reduce((prev, current) => {
+            const prevTop = prev.boundingClientRect.top;
+            const currentTop = current.boundingClientRect.top;
+            
+            // Prefer the section closest to the top of viewport
+            if (prevTop >= 0 && currentTop >= 0) {
+              return prevTop < currentTop ? prev : current;
+            }
+            // If one is above viewport, prefer the one in viewport
+            return prevTop >= 0 ? prev : current;
+          });
+          
+          setActiveSection(mostVisible.target.id);
+        }
+      },
+      {
+        rootMargin: '-20% 0px -35% 0px',
+        threshold: [0, 0.25, 0.5, 0.75, 1]
+      }
+    );
+
+    const sections = document.querySelectorAll('h2[id]');
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Top Navigation */}
@@ -121,28 +160,77 @@ export function Documentation() {
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <Card className="p-6 sticky top-8">
+            <Card className="p-6 sticky top-24">
               <h3 className="font-semibold text-gray-900 mb-4">Contents</h3>
               <nav className="space-y-2">
-                <a href="#getting-started" className="block text-sm text-indigo-600 hover:text-indigo-700">
+                <a 
+                  href="#getting-started" 
+                  className={`block text-sm transition-colors ${
+                    activeSection === 'getting-started' 
+                      ? 'text-indigo-600 font-medium' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
                   Getting Started
                 </a>
-                <a href="#creating-desktop" className="block text-sm text-gray-600 hover:text-gray-900">
+                <a 
+                  href="#creating-desktop" 
+                  className={`block text-sm transition-colors ${
+                    activeSection === 'creating-desktop' 
+                      ? 'text-indigo-600 font-medium' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
                   Creating a Desktop
                 </a>
-                <a href="#connecting" className="block text-sm text-gray-600 hover:text-gray-900">
+                <a 
+                  href="#connecting" 
+                  className={`block text-sm transition-colors ${
+                    activeSection === 'connecting' 
+                      ? 'text-indigo-600 font-medium' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
                   Connecting
                 </a>
-                <a href="#managing" className="block text-sm text-gray-600 hover:text-gray-900">
+                <a 
+                  href="#managing" 
+                  className={`block text-sm transition-colors ${
+                    activeSection === 'managing' 
+                      ? 'text-indigo-600 font-medium' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
                   Managing Desktops
                 </a>
-                <a href="#billing" className="block text-sm text-gray-600 hover:text-gray-900">
+                <a 
+                  href="#billing" 
+                  className={`block text-sm transition-colors ${
+                    activeSection === 'billing' 
+                      ? 'text-indigo-600 font-medium' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
                   Billing & Usage
                 </a>
-                <a href="#security" className="block text-sm text-gray-600 hover:text-gray-900">
+                <a 
+                  href="#security" 
+                  className={`block text-sm transition-colors ${
+                    activeSection === 'security' 
+                      ? 'text-indigo-600 font-medium' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
                   Security
                 </a>
-                <a href="#troubleshooting" className="block text-sm text-gray-600 hover:text-gray-900">
+                <a 
+                  href="#troubleshooting" 
+                  className={`block text-sm transition-colors ${
+                    activeSection === 'troubleshooting' 
+                      ? 'text-indigo-600 font-medium' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
                   Troubleshooting
                 </a>
               </nav>
@@ -281,6 +369,199 @@ export function Documentation() {
             </Card>
 
             <Card className="p-8">
+              <h2 id="managing" className="text-2xl font-semibold text-gray-900 mb-6">
+                Managing Desktops
+              </h2>
+              
+              <div className="prose prose-gray max-w-none space-y-6">
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    Starting and Stopping
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Control your desktop's power state to manage costs and resources:
+                  </p>
+                  <ul className="list-disc list-inside text-gray-600 space-y-2">
+                    <li><strong>Start:</strong> Boot up your desktop. Takes 30-60 seconds.</li>
+                    <li><strong>Stop:</strong> Shut down your desktop. You're only charged for storage when stopped.</li>
+                    <li><strong>Restart:</strong> Reboot your desktop to apply updates or fix issues.</li>
+                  </ul>
+                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mt-4">
+                    <p className="text-sm text-amber-900">
+                      <strong>Cost Tip:</strong> Stop your desktop when not in use to save on compute costs. You'll only pay for storage.
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    Snapshots & Backups
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Protect your work with snapshots and automated backups:
+                  </p>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Manual Snapshots</h4>
+                      <p className="text-gray-600">
+                        Create a snapshot before making major changes. Restore to any snapshot in seconds.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Automatic Backups</h4>
+                      <p className="text-gray-600">
+                        Daily backups are created automatically. Retained for 30 days.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    Scaling Resources
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Adjust your desktop's resources as your needs change:
+                  </p>
+                  <ol className="list-decimal list-inside text-gray-600 space-y-2">
+                    <li>Stop your desktop</li>
+                    <li>Click "Edit Configuration"</li>
+                    <li>Adjust CPU, RAM, storage, or GPU</li>
+                    <li>Save changes and restart</li>
+                  </ol>
+                  <p className="text-gray-600 mt-4">
+                    Changes take effect immediately after restart. Pricing adjusts automatically.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    Deleting a Desktop
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    When you no longer need a desktop:
+                  </p>
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                    <p className="text-sm text-red-900 mb-2">
+                      <strong>Warning:</strong> Deleting a desktop is permanent and cannot be undone.
+                    </p>
+                    <p className="text-sm text-red-800">
+                      Create a snapshot before deleting if you might need the data later.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-8">
+              <h2 id="billing" className="text-2xl font-semibold text-gray-900 mb-6">
+                Billing & Usage
+              </h2>
+              
+              <div className="prose prose-gray max-w-none space-y-6">
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    How Billing Works
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    CloudDesk EDU uses pay-as-you-go pricing with per-minute billing:
+                  </p>
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                    <div className="space-y-3 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Compute (when running)</span>
+                        <span className="text-gray-900 font-medium">$0.10 - $2.50/hour</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Storage (always charged)</span>
+                        <span className="text-gray-900 font-medium">$0.10/GB/month</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">GPU (when running)</span>
+                        <span className="text-gray-900 font-medium">$0.50 - $3.00/hour</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Snapshots</span>
+                        <span className="text-gray-900 font-medium">$0.05/GB/month</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    Monitoring Usage
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Track your spending in real-time:
+                  </p>
+                  <ul className="list-disc list-inside text-gray-600 space-y-2">
+                    <li>View current month costs in the dashboard</li>
+                    <li>Set up billing alerts to avoid surprises</li>
+                    <li>Download detailed usage reports</li>
+                    <li>See per-desktop cost breakdown</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    Cost Optimization Tips
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex gap-3">
+                      <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-emerald-600 text-xs font-semibold">✓</span>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900 mb-1">Stop when not in use</h4>
+                        <p className="text-sm text-gray-600">
+                          You only pay for storage when stopped, saving up to 90% on costs.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-3">
+                      <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-emerald-600 text-xs font-semibold">✓</span>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900 mb-1">Right-size resources</h4>
+                        <p className="text-sm text-gray-600">
+                          Start small and scale up only when needed. You can always adjust later.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-3">
+                      <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-emerald-600 text-xs font-semibold">✓</span>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900 mb-1">Delete unused desktops</h4>
+                        <p className="text-sm text-gray-600">
+                          Remove desktops you no longer need to avoid storage charges.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    Payment Methods
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    We accept the following payment methods:
+                  </p>
+                  <ul className="list-disc list-inside text-gray-600 space-y-2">
+                    <li>Credit cards (Visa, Mastercard, American Express)</li>
+                    <li>Debit cards</li>
+                    <li>PayPal</li>
+                    <li>Wire transfer (for enterprise customers)</li>
+                  </ul>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-8">
               <h2 id="security" className="text-2xl font-semibold text-gray-900 mb-6">
                 Security Best Practices
               </h2>
@@ -331,6 +612,138 @@ export function Documentation() {
                     <p className="text-gray-600">
                       CloudDesk EDU is SOC 2 Type II certified and GDPR compliant.
                     </p>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-8">
+              <h2 id="troubleshooting" className="text-2xl font-semibold text-gray-900 mb-6">
+                Troubleshooting
+              </h2>
+              
+              <div className="prose prose-gray max-w-none space-y-6">
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    Connection Issues
+                  </h3>
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Can't connect to desktop</h4>
+                      <ul className="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                        <li>Verify your desktop is in "Running" state</li>
+                        <li>Check your internet connection</li>
+                        <li>Try a different browser or connection method</li>
+                        <li>Disable VPN or proxy if enabled</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Slow or laggy connection</h4>
+                      <ul className="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                        <li>Choose a region closer to your location</li>
+                        <li>Close bandwidth-heavy applications</li>
+                        <li>Use wired connection instead of WiFi</li>
+                        <li>Lower display quality in connection settings</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    Performance Issues
+                  </h3>
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Desktop is running slow</h4>
+                      <ul className="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                        <li>Check resource usage in the dashboard</li>
+                        <li>Close unnecessary applications</li>
+                        <li>Consider upgrading CPU or RAM</li>
+                        <li>Restart your desktop to clear memory</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Out of storage space</h4>
+                      <ul className="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                        <li>Delete unnecessary files and applications</li>
+                        <li>Move large files to external storage</li>
+                        <li>Increase storage capacity in settings</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    Desktop Won't Start
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    If your desktop fails to start:
+                  </p>
+                  <ol className="list-decimal list-inside text-gray-600 space-y-2">
+                    <li>Wait 2-3 minutes and try again</li>
+                    <li>Check the status page for any service issues</li>
+                    <li>Try stopping and starting again</li>
+                    <li>Restore from a recent snapshot if available</li>
+                    <li>Contact support if the issue persists</li>
+                  </ol>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    Billing Questions
+                  </h3>
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Unexpected charges</h4>
+                      <p className="text-gray-600 mb-2">
+                        Check your usage report to see detailed breakdown:
+                      </p>
+                      <ul className="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                        <li>Verify all desktops are stopped when not in use</li>
+                        <li>Check for forgotten snapshots</li>
+                        <li>Review GPU usage if applicable</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Payment failed</h4>
+                      <ul className="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                        <li>Verify your payment method is valid</li>
+                        <li>Check for sufficient funds</li>
+                        <li>Update billing information in settings</li>
+                        <li>Contact your bank if card is declined</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    Getting More Help
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    If you can't find a solution here:
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-900 mb-2">Community Forum</h4>
+                      <p className="text-sm text-gray-600 mb-3">
+                        Search existing topics or ask the community
+                      </p>
+                      <Link to="/community" className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
+                        Visit Forum →
+                      </Link>
+                    </div>
+                    <div className="border border-gray-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-900 mb-2">Contact Support</h4>
+                      <p className="text-sm text-gray-600 mb-3">
+                        Get help from our support team
+                      </p>
+                      <Link to="/support" className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
+                        Contact Us →
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
