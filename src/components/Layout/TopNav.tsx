@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Bell, HelpCircle, Settings, User, LogOut, CreditCard, Plus } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { Bell, HelpCircle, User, LogOut } from 'lucide-react';
 import { Badge } from '../ui/Badge';
 
 export const TopNav: React.FC = () => {
@@ -49,17 +48,9 @@ export const TopNav: React.FC = () => {
 
           {/* Right: Actions */}
           <div className="flex items-center gap-2">
-            {/* Quick Create Button */}
-            <Link to="/create">
-              <Button variant="primary" size="sm" className="hidden sm:flex">
-                <Plus className="w-4 h-4 mr-1.5" />
-                New Instance
-              </Button>
-            </Link>
-
             {/* Help */}
             <Link to="/docs">
-              <button className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+              <button className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors" title="Documentation">
                 <HelpCircle className="w-5 h-5" />
               </button>
             </Link>
@@ -139,27 +130,10 @@ export const TopNav: React.FC = () => {
 
                   {/* Menu Items */}
                   <div className="py-1">
-                    <Link
-                      to="/dashboard"
-                      className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                    >
+                    <button className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors w-full">
                       <User className="w-4 h-4" />
-                      My Profile
-                    </Link>
-                    <Link
-                      to="/usage"
-                      className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                    >
-                      <CreditCard className="w-4 h-4" />
-                      Billing & Usage
-                    </Link>
-                    <Link
-                      to="/dashboard"
-                      className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                    >
-                      <Settings className="w-4 h-4" />
-                      Settings
-                    </Link>
+                      Account Settings
+                    </button>
                   </div>
 
                   {/* Logout */}

@@ -77,18 +77,7 @@ export const Sidebar: React.FC = () => {
           })}
         </nav>
 
-        {/* User Profile Section */}
-        <div className="border-t border-slate-200 p-3">
-          <div className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
-            <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-sm font-medium">
-              U
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-slate-900 truncate">User Name</p>
-              <p className="text-xs text-slate-500 truncate">user@example.com</p>
-            </div>
-          </div>
-        </div>
+
       </div>
     </aside>
   );
