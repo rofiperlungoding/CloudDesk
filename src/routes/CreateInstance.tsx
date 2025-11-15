@@ -163,105 +163,81 @@ export default function CreateInstance() {
     }
   };
 
+  const selectedPreset = IMAGE_PRESETS.find((p) => p.id === selectedPresetId);
+
   return (
-    <div className="mx-auto max-w-7xl px-8 py-8">
+    <div className="mx-auto max-w-7xl px-8 py-6">
       {/* Page Header */}
-      <div className="mb-8">
-        <div className="mb-3 text-sm text-gray-500">
+      <div className="mb-6">
+        <div className="mb-2 text-sm text-gray-500">
           <Link to="/dashboard" className="hover:text-gray-900">
             Dashboard
           </Link>
           <span className="mx-2">/</span>
           <span className="text-gray-900">Create Desktop</span>
         </div>
-        <h1 className="mb-2 text-2xl font-semibold text-gray-900">Create Desktop</h1>
-        <p className="max-w-2xl text-sm text-gray-500">
-          Choose a preset optimized for your workflow, then customize resources to match your needs.
-        </p>
+        <h1 className="text-2xl font-semibold text-gray-900">Create New Desktop</h1>
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="grid gap-8 lg:grid-cols-5">
-          {/* Preset Selection */}
-          <div className="lg:col-span-2">
-            <h2 className="mb-4 text-lg font-semibold text-gray-900">Choose a Preset</h2>
-            <p className="mb-6 text-sm text-gray-500">
-              Select a configuration optimized for your workflow. You can adjust resources after selecting.
-            </p>
-            <div className="space-y-4">
-              {IMAGE_PRESETS.map((preset) => {
-                const Icon = PRESET_ICONS[preset.id] || Monitor;
-                const isSelected = selectedPresetId === preset.id;
+        <div className="grid gap-6 lg:grid-cols-3">
+          {/* Left Column - Configuration Form */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Preset Selection - Compact */}
+            <Card className="p-6">
+              <h2 className="mb-4 text-base font-semibold text-gray-900">1. Choose Preset</h2>
+              <div className="grid grid-cols-2 gap-3">
+                {IMAGE_PRESETS.map((preset) => {
+                  const Icon = PRESET_ICONS[preset.id] || Monitor;
+                  const isSelected = selectedPresetId === preset.id;
 
-                return (
-                  <InteractiveCard
-                    key={preset.id}
-                    className="group"
-                  >
-                    <Card
-                      className={`cursor-pointer p-5 transition-all bg-white ${
-                        isSelected
-                          ? 'border-2 border-indigo-600 shadow-md'
-                          : 'border-2 border-gray-200 hover:border-gray-300 hover:shadow-md'
-                      }`}
+                  return (
+                    <button
+                      key={preset.id}
+                      type="button"
                       onClick={() => handlePresetSelect(preset.id)}
+                      className={`text-left p-4 rounded-lg border-2 transition-all ${
+                        isSelected
+                          ? 'border-indigo-600 bg-indigo-50'
+                          : 'border-gray-200 hover:border-gray-300 bg-white'
+                      }`}
                     >
-                      <div className="flex items-start justify-between">
-                        <Icon className="h-8 w-8 text-indigo-600" />
-                        {isSelected && (
-                          <CheckCircle className="h-6 w-6 text-indigo-600" />
-                        )}
+                      <div className="flex items-center gap-3 mb-2">
+                        <Icon className="h-5 w-5 text-indigo-600 flex-shrink-0" />
+                        <span className="text-sm font-semibold text-gray-900">{preset.name}</span>
                       </div>
-                      <div className="mt-4">
-                        <h3 className="mb-2 text-base font-semibold text-gray-900">
-                          {preset.name}
-                        </h3>
-                        <p className="mb-4 text-sm leading-relaxed text-gray-600">
-                          {preset.description}
-                        </p>
-                        <div className="space-y-1 text-sm text-gray-500">
-                          <p>{preset.recommendedCpu} vCPU</p>
-                          <p>{preset.recommendedRamGb} GB RAM</p>
-                          <p>{preset.recommendedStorageGb} GB Storage</p>
-                          <p>{preset.supportsGpu ? 'GPU Supported' : 'No GPU'}</p>
-                        </div>
-                      </div>
-                    </Card>
-                  </InteractiveCard>
-                );
-              })}
-            </div>
-          </div>
+                      <p className="text-xs text-gray-600 line-clamp-2">{preset.description}</p>
+                    </button>
+                  );
+                })}
+              </div>
+            </Card>
 
-          {/* Configuration Form */}
-          <div className="lg:col-span-3">
-            <Card className="p-8">
-              <h2 className="mb-6 text-lg font-semibold text-gray-900">Configuration</h2>
-              <div className="space-y-6">
+            {/* Basic Configuration */}
+            <Card className="p-6">
+              <h2 className="mb-4 text-base font-semibold text-gray-900">2. Basic Configuration</h2>
+              <div className="space-y-4">
                 {/* Instance Name */}
                 <div>
-                  <label htmlFor="instanceName" className="mb-2 block text-sm font-medium text-gray-900">
-                    Instance Name *
+                  <label htmlFor="instanceName" className="mb-1.5 block text-sm font-medium text-gray-900">
+                    Desktop Name *
                   </label>
                   <Input
                     id="instanceName"
                     type="text"
-                    placeholder="e.g., My Ubuntu Desktop"
+                    placeholder="e.g., My Development Desktop"
                     value={instanceName}
                     onChange={(e) => setInstanceName(e.target.value)}
                     className={errors.instanceName ? 'border-red-500' : ''}
                   />
                   {errors.instanceName && (
-                    <p className="mt-1 text-sm text-red-600">{errors.instanceName}</p>
+                    <p className="mt-1 text-xs text-red-600">{errors.instanceName}</p>
                   )}
-                  <p className="mt-1 text-sm text-gray-500">
-                    Choose a descriptive name to identify this desktop.
-                  </p>
                 </div>
 
                 {/* Region */}
                 <div>
-                  <label htmlFor="region" className="mb-2 block text-sm font-medium text-gray-900">
+                  <label htmlFor="region" className="mb-1.5 block text-sm font-medium text-gray-900">
                     Region *
                   </label>
                   <Select
@@ -275,16 +251,20 @@ export default function CreateInstance() {
                       </option>
                     ))}
                   </Select>
-                  <p className="mt-1 text-sm text-gray-500">
-                    Choose the region closest to you for best performance.
-                  </p>
                 </div>
+              </div>
+            </Card>
+
+            {/* Resources */}
+            <Card className="p-6">
+              <h2 className="mb-4 text-base font-semibold text-gray-900">3. Resources</h2>
+              <div className="space-y-5">
 
                 {/* CPU Cores */}
                 <div>
-                  <div className="mb-2 flex items-center justify-between">
+                  <div className="mb-1.5 flex items-center justify-between">
                     <label htmlFor="cpuCores" className="text-sm font-medium text-gray-900">
-                      CPU Cores *
+                      CPU Cores
                     </label>
                     <span className="text-sm font-semibold text-indigo-600">
                       {cpuCores} vCPU
@@ -300,25 +280,18 @@ export default function CreateInstance() {
                     onChange={(e) => setCpuCores(parseInt(e.target.value))}
                     className="h-2 w-full cursor-pointer appearance-none rounded-full bg-gray-200 accent-indigo-600"
                   />
-                  <div className="mt-2 flex justify-between text-xs text-gray-400">
+                  <div className="mt-1.5 flex justify-between text-xs text-gray-400">
                     <span>1</span>
-                    <span>4</span>
                     <span>8</span>
                     <span>16</span>
                   </div>
-                  {errors.cpuCores && (
-                    <p className="mt-1 text-sm text-red-600">{errors.cpuCores}</p>
-                  )}
-                  <p className="mt-1 text-sm text-gray-500">
-                    More CPU cores improve performance for multi-threaded applications.
-                  </p>
                 </div>
 
                 {/* RAM */}
                 <div>
-                  <div className="mb-2 flex items-center justify-between">
+                  <div className="mb-1.5 flex items-center justify-between">
                     <label htmlFor="ramGb" className="text-sm font-medium text-gray-900">
-                      RAM (Memory) *
+                      RAM
                     </label>
                     <span className="text-sm font-semibold text-indigo-600">
                       {ramGb} GB
@@ -334,25 +307,18 @@ export default function CreateInstance() {
                     onChange={(e) => setRamGb(parseInt(e.target.value))}
                     className="h-2 w-full cursor-pointer appearance-none rounded-full bg-gray-200 accent-indigo-600"
                   />
-                  <div className="mt-2 flex justify-between text-xs text-gray-400">
+                  <div className="mt-1.5 flex justify-between text-xs text-gray-400">
                     <span>2</span>
-                    <span>16</span>
                     <span>32</span>
                     <span>64</span>
                   </div>
-                  {errors.ramGb && (
-                    <p className="mt-1 text-sm text-red-600">{errors.ramGb}</p>
-                  )}
-                  <p className="mt-1 text-sm text-gray-500">
-                    More RAM allows running more applications simultaneously.
-                  </p>
                 </div>
 
                 {/* Storage */}
                 <div>
-                  <div className="mb-2 flex items-center justify-between">
+                  <div className="mb-1.5 flex items-center justify-between">
                     <label htmlFor="storageGb" className="text-sm font-medium text-gray-900">
-                      Storage *
+                      Storage
                     </label>
                     <span className="text-sm font-semibold text-indigo-600">
                       {storageGb} GB
@@ -368,111 +334,138 @@ export default function CreateInstance() {
                     onChange={(e) => setStorageGb(parseInt(e.target.value))}
                     className="h-2 w-full cursor-pointer appearance-none rounded-full bg-gray-200 accent-indigo-600"
                   />
-                  <div className="mt-2 flex justify-between text-xs text-gray-400">
+                  <div className="mt-1.5 flex justify-between text-xs text-gray-400">
                     <span>20</span>
-                    <span>100</span>
-                    <span>200</span>
+                    <span>250</span>
                     <span>500</span>
                   </div>
-                  {errors.storageGb && (
-                    <p className="mt-1 text-sm text-red-600">{errors.storageGb}</p>
-                  )}
-                  <p className="mt-1 text-sm text-gray-500">
-                    Storage can be expanded later if needed.
-                  </p>
+                </div>
+              </div>
+            </Card>
+
+            {/* GPU Selection - Compact */}
+            <Card className="p-6">
+              <h2 className="mb-4 text-base font-semibold text-gray-900">4. GPU (Optional)</h2>
+              <div className="space-y-2">
+
+                <Select
+                  value={gpu}
+                  onChange={(e) => setGpu(e.target.value as GpuType)}
+                >
+                  {GPU_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label} - {option.priceImpact}
+                    </option>
+                  ))}
+                </Select>
+                <p className="mt-1.5 text-xs text-gray-500">
+                  Required for ML, 3D rendering, and graphics workloads
+                </p>
+              </div>
+            </Card>
+          </div>
+
+          {/* Right Column - Summary (Sticky) */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-6 space-y-4">
+              {/* Configuration Summary */}
+              <Card className="p-6">
+                <h3 className="mb-4 text-base font-semibold text-gray-900">Configuration Summary</h3>
+                
+                {/* Preset */}
+                <div className="mb-4 pb-4 border-b border-gray-200">
+                  <p className="text-xs text-gray-500 mb-1">Preset</p>
+                  <p className="text-sm font-medium text-gray-900">{selectedPreset?.name}</p>
+                  <p className="text-xs text-gray-600 mt-0.5">{selectedPreset?.osName}</p>
                 </div>
 
-                {/* GPU */}
-                <div>
-                  <label className="mb-3 block text-sm font-medium text-gray-900">
-                    GPU (Graphics Processing Unit)
-                  </label>
-                  <div className="space-y-3">
-                    {GPU_OPTIONS.map((option) => (
-                      <label
-                        key={option.value}
-                        className={`flex cursor-pointer items-start rounded-lg border-2 p-4 transition-all ${
-                          gpu === option.value
-                            ? 'border-indigo-600 bg-indigo-50'
-                            : 'border-gray-200 hover:border-gray-300'
-                        }`}
-                      >
-                        <input
-                          type="radio"
-                          name="gpu"
-                          value={option.value}
-                          checked={gpu === option.value}
-                          onChange={(e) => setGpu(e.target.value as GpuType)}
-                          className="mt-1 h-4 w-4 border-gray-300 text-indigo-600 focus:ring-2 focus:ring-indigo-600"
-                        />
-                        <div className="ml-3 flex-1">
-                          <div className="flex items-center justify-between">
-                            <span className="text-sm font-medium text-gray-900">
-                              {option.label}
-                            </span>
-                            <span className="text-sm font-medium text-gray-900">
-                              {option.priceImpact}
-                            </span>
-                          </div>
-                          <p className="mt-1 text-sm text-gray-600">
-                            {option.description}
-                          </p>
-                        </div>
-                      </label>
-                    ))}
+                {/* Name & Region */}
+                <div className="space-y-3 mb-4 pb-4 border-b border-gray-200">
+                  <div>
+                    <p className="text-xs text-gray-500 mb-0.5">Name</p>
+                    <p className="text-sm font-medium text-gray-900">
+                      {instanceName || <span className="text-gray-400">Not set</span>}
+                    </p>
                   </div>
-                  <p className="mt-2 text-sm text-gray-500">
-                    GPU is required for machine learning, 3D rendering, and graphics-intensive applications.
-                  </p>
+                  <div>
+                    <p className="text-xs text-gray-500 mb-0.5">Region</p>
+                    <p className="text-sm font-medium text-gray-900">
+                      {REGIONS.find(r => r.value === region)?.label}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </Card>
 
-            {/* Cost Estimator */}
-            <Card className="mt-6 border-indigo-200 bg-indigo-50 p-6">
-              <h3 className="mb-4 text-base font-semibold text-gray-900">Cost Estimate</h3>
-              <div className="mb-4">
-                <p className="text-sm text-gray-600">Estimated hourly cost</p>
-                <p className="mt-1 text-3xl font-semibold text-gray-900">
-                  ${hourlyCost.toFixed(2)}/hour
-                </p>
-              </div>
-              <div className="border-t border-indigo-200 pt-4">
-                <p className="text-sm text-gray-600">Estimated monthly cost</p>
-                <p className="mt-1 text-xs text-gray-500">
-                  (based on 8 hours/day, 22 days/month)
-                </p>
-                <p className="mt-2 text-2xl font-semibold text-gray-900">
-                  ${monthlyCost.toFixed(2)}/month
-                </p>
-              </div>
-              <p className="mt-4 text-xs text-gray-500">
-                Actual costs may vary based on usage. You'll only be charged for running instances.
-              </p>
-            </Card>
+                {/* Resources */}
+                <div className="space-y-2.5">
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-gray-500">CPU</span>
+                    <span className="text-sm font-semibold text-gray-900">{cpuCores} vCPU</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-gray-500">RAM</span>
+                    <span className="text-sm font-semibold text-gray-900">{ramGb} GB</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-gray-500">Storage</span>
+                    <span className="text-sm font-semibold text-gray-900">{storageGb} GB</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-gray-500">GPU</span>
+                    <span className="text-sm font-semibold text-gray-900">
+                      {GPU_OPTIONS.find(g => g.value === gpu)?.label}
+                    </span>
+                  </div>
+                </div>
+              </Card>
 
-            {/* Form Actions */}
-            <div className="mt-8 flex justify-end gap-3">
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={() => navigate('/dashboard')}
-                disabled={isSubmitting}
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                variant="primary"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Creating...' : 'Create Desktop'}
-              </Button>
+              {/* Cost Summary */}
+              <Card className="p-6 bg-indigo-50 border-indigo-200">
+                <h3 className="mb-4 text-base font-semibold text-gray-900">Cost Estimate</h3>
+                <div className="space-y-3">
+                  <div>
+                    <p className="text-xs text-gray-600 mb-1">Hourly</p>
+                    <p className="text-2xl font-semibold text-gray-900">
+                      ${hourlyCost.toFixed(2)}<span className="text-sm font-normal text-gray-600">/hr</span>
+                    </p>
+                  </div>
+                  <div className="pt-3 border-t border-indigo-200">
+                    <p className="text-xs text-gray-600 mb-1">Monthly estimate</p>
+                    <p className="text-xs text-gray-500 mb-2">(8 hrs/day, 22 days)</p>
+                    <p className="text-xl font-semibold text-gray-900">
+                      ${monthlyCost.toFixed(2)}<span className="text-sm font-normal text-gray-600">/mo</span>
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-4 text-xs text-gray-600">
+                  Only charged when running
+                </p>
+              </Card>
+
+              {/* Actions */}
+              <div className="space-y-2">
+                <Button
+                  type="submit"
+                  variant="primary"
+                  className="w-full"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Creating...' : 'Create Desktop'}
+                </Button>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  className="w-full"
+                  onClick={() => navigate('/dashboard')}
+                  disabled={isSubmitting}
+                >
+                  Cancel
+                </Button>
+              </div>
+
+              {errors.submit && (
+                <p className="text-xs text-red-600 text-center">{errors.submit}</p>
+              )}
             </div>
-
-            {errors.submit && (
-              <p className="mt-4 text-sm text-red-600">{errors.submit}</p>
-            )}
           </div>
         </div>
       </form>
