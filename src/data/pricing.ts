@@ -10,11 +10,16 @@ export const PRICING_CONFIG: PricingConfig = {
   basePerRamGbPerHour: 0.01, // $0.01 per GB RAM per hour
   basePerStorageGbPerHour: 0.001, // $0.001 per GB storage per hour
 
-  // GPU additional costs
+  // GPU additional costs (per hour)
   gpuExtraPerHour: {
     NONE: 0.0,
-    BASIC: 0.5, // NVIDIA T4
-    ADVANCED: 2.0, // NVIDIA A100
+    T4: 0.50,           // Entry-level ML/inference
+    V100: 2.50,         // Professional deep learning
+    A10: 1.80,          // Professional graphics/AI
+    A100: 4.00,         // Enterprise AI training
+    H100: 8.00,         // Next-gen enterprise AI
+    RTX_4090: 2.80,     // Workstation rendering
+    RTX_A6000: 3.20,    // Professional visualization
   },
 
   // Markup rate (1.0 = no markup, 1.1 = 10% markup)

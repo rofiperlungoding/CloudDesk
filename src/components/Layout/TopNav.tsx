@@ -9,11 +9,8 @@ export const TopNav: React.FC = () => {
         <div className="flex items-center justify-between h-16">
           {/* Left: Logo + Product Name */}
           <div className="flex items-center gap-3">
-            <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-              <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-semibold text-sm">CD</span>
-              </div>
-              <span className="text-lg font-semibold text-slate-900">CloudDesk EDU</span>
+            <Link to="/" className="hover:opacity-80 transition-opacity">
+              <img src="/logo-clouddesk.png" alt="CloudDesk EDU" className="w-12 h-12 object-contain" />
             </Link>
           </div>
 

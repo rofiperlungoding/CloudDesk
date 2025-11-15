@@ -2,9 +2,32 @@
 
 export type InstanceStatus = 'PROVISIONING' | 'RUNNING' | 'STOPPED' | 'DELETED' | 'ERROR';
 
-export type GpuType = 'NONE' | 'BASIC' | 'ADVANCED';
+export type GpuType = 
+  | 'NONE' 
+  | 'T4' 
+  | 'V100' 
+  | 'A10' 
+  | 'A100' 
+  | 'H100' 
+  | 'RTX_4090' 
+  | 'RTX_A6000';
 
-export type Region = 'US_EAST' | 'US_WEST' | 'EU_WEST' | 'EU_CENTRAL' | 'ASIA_PACIFIC';
+export type GpuCategory = 'NONE' | 'ENTRY' | 'PROFESSIONAL' | 'ENTERPRISE' | 'WORKSTATION';
+
+export type Region = 
+  | 'US_EAST_1' 
+  | 'US_EAST_2' 
+  | 'US_WEST_1' 
+  | 'US_WEST_2' 
+  | 'EU_WEST_1' 
+  | 'EU_WEST_2' 
+  | 'EU_CENTRAL_1' 
+  | 'EU_NORTH_1'
+  | 'ASIA_PACIFIC_1' 
+  | 'ASIA_PACIFIC_2' 
+  | 'ASIA_PACIFIC_3'
+  | 'MIDDLE_EAST_1'
+  | 'SOUTH_AMERICA_1';
 
 export interface Instance {
   id: string;
@@ -36,11 +59,7 @@ export interface PricingConfig {
   basePerCpuPerHour: number;
   basePerRamGbPerHour: number;
   basePerStorageGbPerHour: number;
-  gpuExtraPerHour: {
-    NONE: number;
-    BASIC: number;
-    ADVANCED: number;
-  };
+  gpuExtraPerHour: Record<GpuType, number>;
   markupRate: number; // Multiplier for total cost (e.g., 1.1 for 10% markup)
 }
 
@@ -68,16 +87,106 @@ export interface DailyUsage {
 
 // Helper type for region display
 export const REGION_NAMES: Record<Region, string> = {
-  US_EAST: 'US East (Virginia)',
-  US_WEST: 'US West (Oregon)',
-  EU_WEST: 'EU West (Ireland)',
-  EU_CENTRAL: 'EU Central (Frankfurt)',
-  ASIA_PACIFIC: 'Asia Pacific (Singapore)',
+  US_EAST_1: 'US East (N. Virginia)',
+  US_EAST_2: 'US East (Ohio)',
+  US_WEST_1: 'US West (N. California)',
+  US_WEST_2: 'US West (Oregon)',
+  EU_WEST_1: 'EU West (Ireland)',
+  EU_WEST_2: 'EU West (London)',
+  EU_CENTRAL_1: 'EU Central (Frankfurt)',
+  EU_NORTH_1: 'EU North (Stockholm)',
+  ASIA_PACIFIC_1: 'Asia Pacific (Singapore)',
+  ASIA_PACIFIC_2: 'Asia Pacific (Tokyo)',
+  ASIA_PACIFIC_3: 'Asia Pacific (Sydney)',
+  MIDDLE_EAST_1: 'Middle East (Bahrain)',
+  SOUTH_AMERICA_1: 'South America (São Paulo)',
 };
 
-// Helper type for GPU display
-export const GPU_NAMES: Record<GpuType, string> = {
-  NONE: 'None',
-  BASIC: 'NVIDIA T4 (Basic)',
-  ADVANCED: 'NVIDIA A100 (Advanced)',
+// GPU specifications with detailed info
+export interface GpuSpec {
+  name: string;
+  category: GpuCategory;
+  vram: string;
+  computeCapability: string;
+  idealFor: string[];
+  priceMultiplier: number;
+}
+
+export const GPU_SPECS: Record<GpuType, GpuSpec> = {
+  NONE: {
+    name: 'No GPU',
+    category: 'NONE',
+    vram: '0 GB',
+    computeCapability: 'N/A',
+    idealFor: ['General computing', 'Web development', 'Office work'],
+    priceMultiplier: 0,
+  },
+  T4: {
+    name: 'NVIDIA Tesla T4',
+    category: 'ENTRY',
+    vram: '16 GB GDDR6',
+    computeCapability: '7.5',
+    idealFor: ['ML inference', 'Light training', 'Video encoding'],
+    priceMultiplier: 1.5,
+  },
+  V100: {
+    name: 'NVIDIA Tesla V100',
+    category: 'PROFESSIONAL',
+    vram: '32 GB HBM2',
+    computeCapability: '7.0',
+    idealFor: ['Deep learning', 'HPC', 'Scientific computing'],
+    priceMultiplier: 3.0,
+  },
+  A10: {
+    name: 'NVIDIA A10',
+    category: 'PROFESSIONAL',
+    vram: '24 GB GDDR6',
+    computeCapability: '8.6',
+    idealFor: ['Graphics workloads', 'AI inference', 'Virtual workstations'],
+    priceMultiplier: 2.5,
+  },
+  A100: {
+    name: 'NVIDIA A100',
+    category: 'ENTERPRISE',
+    vram: '80 GB HBM2e',
+    computeCapability: '8.0',
+    idealFor: ['Large-scale AI training', 'HPC', 'Data analytics'],
+    priceMultiplier: 5.0,
+  },
+  H100: {
+    name: 'NVIDIA H100',
+    category: 'ENTERPRISE',
+    vram: '80 GB HBM3',
+    computeCapability: '9.0',
+    idealFor: ['Generative AI', 'LLM training', 'Advanced HPC'],
+    priceMultiplier: 8.0,
+  },
+  RTX_4090: {
+    name: 'NVIDIA GeForce RTX 4090',
+    category: 'WORKSTATION',
+    vram: '24 GB GDDR6X',
+    computeCapability: '8.9',
+    idealFor: ['3D rendering', 'Game development', 'Content creation'],
+    priceMultiplier: 3.5,
+  },
+  RTX_A6000: {
+    name: 'NVIDIA RTX A6000',
+    category: 'WORKSTATION',
+    vram: '48 GB GDDR6',
+    computeCapability: '8.6',
+    idealFor: ['Professional visualization', 'CAD', 'Ray tracing'],
+    priceMultiplier: 4.0,
+  },
 };
+
+// Helper to get GPU name
+export function getGpuName(type: GpuType): string {
+  return GPU_SPECS[type].name;
+}
+
+// Helper to get GPUs by category
+export function getGpusByCategory(category: GpuCategory): GpuType[] {
+  return Object.entries(GPU_SPECS)
+    .filter(([_, spec]) => spec.category === category)
+    .map(([type]) => type as GpuType);
+}

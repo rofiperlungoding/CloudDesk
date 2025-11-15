@@ -57,7 +57,7 @@ export function calculateUsageSummary(usageRows: UsageRow[]): UsageSummary {
  */
 export function generateDailyUsage(_instances?: Instance[]): DailyUsage[] {
   const dailyData: DailyUsage[] = [];
-  const today = new Date('2024-01-20'); // Fixed date for demo consistency
+  const today = new Date('2025-01-20'); // Fixed date for demo consistency
 
   // Base daily costs with realistic variation
   const baseDailyCosts = [

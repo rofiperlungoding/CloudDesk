@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CheckCircle, Monitor, Code, BarChart, Box } from 'lucide-react';
 import { Card } from '../components/ui/Card';
+import { InteractiveCard } from '../components/ui/InteractiveCard';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import { Select } from '../components/ui/Select';
@@ -19,17 +20,26 @@ const PRESET_ICONS: Record<string, React.ComponentType<{ className?: string }>> 
 };
 
 const REGIONS: { value: Region; label: string }[] = [
-  { value: 'US_EAST', label: 'US East (Virginia)' },
-  { value: 'US_WEST', label: 'US West (Oregon)' },
-  { value: 'EU_WEST', label: 'EU West (Ireland)' },
-  { value: 'EU_CENTRAL', label: 'EU Central (Frankfurt)' },
-  { value: 'ASIA_PACIFIC', label: 'Asia Pacific (Singapore)' },
+  { value: 'US_EAST_1', label: 'US East (N. Virginia)' },
+  { value: 'US_EAST_2', label: 'US East (Ohio)' },
+  { value: 'US_WEST_1', label: 'US West (N. California)' },
+  { value: 'US_WEST_2', label: 'US West (Oregon)' },
+  { value: 'EU_WEST_1', label: 'EU West (Ireland)' },
+  { value: 'EU_WEST_2', label: 'EU West (London)' },
+  { value: 'EU_CENTRAL_1', label: 'EU Central (Frankfurt)' },
+  { value: 'ASIA_PACIFIC_1', label: 'Asia Pacific (Singapore)' },
+  { value: 'ASIA_PACIFIC_2', label: 'Asia Pacific (Tokyo)' },
 ];
 
 const GPU_OPTIONS: { value: GpuType; label: string; description: string; priceImpact: string }[] = [
   { value: 'NONE', label: 'None', description: 'No GPU (most workloads)', priceImpact: '$0.00/hr' },
-  { value: 'BASIC', label: 'Basic GPU', description: 'NVIDIA T4 (ML, light rendering)', priceImpact: '+$0.50/hr' },
-  { value: 'ADVANCED', label: 'Advanced GPU', description: 'NVIDIA A100 (heavy ML, 3D rendering)', priceImpact: '+$2.00/hr' },
+  { value: 'T4', label: 'NVIDIA T4', description: 'Entry - ML inference, light training', priceImpact: '+$0.50/hr' },
+  { value: 'A10', label: 'NVIDIA A10', description: 'Professional - Graphics, AI inference', priceImpact: '+$1.80/hr' },
+  { value: 'V100', label: 'NVIDIA V100', description: 'Professional - Deep learning, HPC', priceImpact: '+$2.50/hr' },
+  { value: 'RTX_4090', label: 'NVIDIA RTX 4090', description: 'Workstation - 3D rendering, game dev', priceImpact: '+$2.80/hr' },
+  { value: 'RTX_A6000', label: 'NVIDIA RTX A6000', description: 'Workstation - Professional CAD', priceImpact: '+$3.20/hr' },
+  { value: 'A100', label: 'NVIDIA A100', description: 'Enterprise - Large-scale AI training', priceImpact: '+$4.00/hr' },
+  { value: 'H100', label: 'NVIDIA H100', description: 'Enterprise - Generative AI, LLMs', priceImpact: '+$8.00/hr' },
 ];
 
 export default function CreateInstance() {
@@ -39,7 +49,7 @@ export default function CreateInstance() {
   // Form state
   const [selectedPresetId, setSelectedPresetId] = useState<string>('dev-engineering');
   const [instanceName, setInstanceName] = useState('');
-  const [region, setRegion] = useState<Region>('US_EAST');
+  const [region, setRegion] = useState<Region>('US_EAST_1');
   const [cpuCores, setCpuCores] = useState(4);
   const [ramGb, setRamGb] = useState(8);
   const [storageGb, setStorageGb] = useState(50);
@@ -65,7 +75,7 @@ export default function CreateInstance() {
       setStorageGb(preset.recommendedStorageGb);
     }
     if (gpu === 'NONE' && preset.supportsGpu) {
-      setGpu('BASIC');
+      setGpu('T4');
     }
   };
 
@@ -184,36 +194,40 @@ export default function CreateInstance() {
                 const isSelected = selectedPresetId === preset.id;
 
                 return (
-                  <Card
+                  <InteractiveCard
                     key={preset.id}
-                    className={`cursor-pointer p-5 transition-all ${
-                      isSelected
-                        ? 'border-2 border-indigo-600 shadow-md'
-                        : 'border-2 border-gray-200 hover:border-gray-300 hover:shadow-md'
-                    }`}
-                    onClick={() => handlePresetSelect(preset.id)}
+                    className="group"
                   >
-                    <div className="flex items-start justify-between">
-                      <Icon className="h-8 w-8 text-indigo-600" />
-                      {isSelected && (
-                        <CheckCircle className="h-6 w-6 text-indigo-600" />
-                      )}
-                    </div>
-                    <div className="mt-4">
-                      <h3 className="mb-2 text-base font-semibold text-gray-900">
-                        {preset.name}
-                      </h3>
-                      <p className="mb-4 text-sm leading-relaxed text-gray-600">
-                        {preset.description}
-                      </p>
-                      <div className="space-y-1 text-sm text-gray-500">
-                        <p>{preset.recommendedCpu} vCPU</p>
-                        <p>{preset.recommendedRamGb} GB RAM</p>
-                        <p>{preset.recommendedStorageGb} GB Storage</p>
-                        <p>{preset.supportsGpu ? 'GPU Supported' : 'No GPU'}</p>
+                    <Card
+                      className={`cursor-pointer p-5 transition-all bg-white ${
+                        isSelected
+                          ? 'border-2 border-indigo-600 shadow-md'
+                          : 'border-2 border-gray-200 hover:border-gray-300 hover:shadow-md'
+                      }`}
+                      onClick={() => handlePresetSelect(preset.id)}
+                    >
+                      <div className="flex items-start justify-between">
+                        <Icon className="h-8 w-8 text-indigo-600" />
+                        {isSelected && (
+                          <CheckCircle className="h-6 w-6 text-indigo-600" />
+                        )}
                       </div>
-                    </div>
-                  </Card>
+                      <div className="mt-4">
+                        <h3 className="mb-2 text-base font-semibold text-gray-900">
+                          {preset.name}
+                        </h3>
+                        <p className="mb-4 text-sm leading-relaxed text-gray-600">
+                          {preset.description}
+                        </p>
+                        <div className="space-y-1 text-sm text-gray-500">
+                          <p>{preset.recommendedCpu} vCPU</p>
+                          <p>{preset.recommendedRamGb} GB RAM</p>
+                          <p>{preset.recommendedStorageGb} GB Storage</p>
+                          <p>{preset.supportsGpu ? 'GPU Supported' : 'No GPU'}</p>
+                        </div>
+                      </div>
+                    </Card>
+                  </InteractiveCard>
                 );
               })}
             </div>

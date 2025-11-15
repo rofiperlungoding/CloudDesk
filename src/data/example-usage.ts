@@ -14,7 +14,7 @@ import {
   getPresetById,
   getInstanceById,
   REGION_NAMES,
-  GPU_NAMES,
+  GPU_SPECS,
 } from './index';
 
 // Example 1: Get all instances
@@ -25,7 +25,7 @@ const instance = getInstanceById('inst-001');
 if (instance) {
   console.log('Instance:', instance.name);
   console.log('Region:', REGION_NAMES[instance.region]);
-  console.log('GPU:', GPU_NAMES[instance.gpu]);
+  console.log('GPU:', GPU_SPECS[instance.gpu].name);
 }
 
 // Example 3: Calculate costs

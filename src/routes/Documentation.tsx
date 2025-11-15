@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Book, Code, Zap, Shield, HelpCircle, ExternalLink } from 'lucide-react';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
@@ -6,7 +7,52 @@ import { Tabs } from '../components/ui/Tabs';
 
 export function Documentation() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
+      {/* Top Navigation */}
+      <nav className="sticky top-0 z-40 bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-8 lg:px-16">
+          <div className="flex items-center justify-between h-16">
+            {/* Left: Logo + Brand */}
+            <div className="flex items-center gap-8">
+              <Link to="/">
+                <img src="/logo-clouddesk.png" alt="CloudDesk EDU" className="w-12 h-12 object-contain hover:opacity-80 transition-opacity" />
+              </Link>
+              
+              {/* Center: Navigation Links */}
+              <div className="hidden md:flex items-center gap-6">
+                <Link to="/product" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                  Product
+                </Link>
+                <Link to="/use-cases" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                  Use Cases
+                </Link>
+                <Link to="/pricing" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                  Pricing
+                </Link>
+                <Link to="/docs" className="text-sm font-medium text-indigo-600 transition-colors">
+                  Documentation
+                </Link>
+              </div>
+            </div>
+
+            {/* Right: Actions */}
+            <div className="flex items-center gap-3">
+              <Link to="/dashboard">
+                <Button variant="ghost" size="sm">
+                  Sign In
+                </Button>
+              </Link>
+              <Link to="/dashboard">
+                <Button variant="primary" size="sm">
+                  Get Started
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-8 py-20">
@@ -25,44 +71,50 @@ export function Documentation() {
       <section className="max-w-7xl mx-auto px-8 py-20">
         <h2 className="text-2xl font-semibold text-gray-900 mb-8">Quick Start</h2>
         <div className="grid md:grid-cols-3 gap-6 mb-16">
-          <Card className="p-6 hover:border-indigo-300 transition-colors cursor-pointer">
-            <Zap className="w-10 h-10 text-indigo-600 mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              Getting Started
-            </h3>
-            <p className="text-gray-600 mb-4">
-              Create your first cloud desktop in under 5 minutes
-            </p>
-            <Button variant="ghost" className="p-0 h-auto">
-              Read guide →
-            </Button>
-          </Card>
+          <Link to="/docs/getting-started">
+            <Card className="p-6 hover:border-indigo-300 transition-colors cursor-pointer">
+              <Zap className="w-10 h-10 text-indigo-600 mb-4" />
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Getting Started
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Create your first cloud desktop in under 5 minutes
+              </p>
+              <Button variant="ghost" className="p-0 h-auto">
+                Read guide →
+              </Button>
+            </Card>
+          </Link>
 
-          <Card className="p-6 hover:border-indigo-300 transition-colors cursor-pointer">
-            <Code className="w-10 h-10 text-indigo-600 mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              API Reference
-            </h3>
-            <p className="text-gray-600 mb-4">
-              Integrate CloudDesk into your applications
-            </p>
-            <Button variant="ghost" className="p-0 h-auto">
-              View API docs →
-            </Button>
-          </Card>
+          <Link to="/docs/api">
+            <Card className="p-6 hover:border-indigo-300 transition-colors cursor-pointer">
+              <Code className="w-10 h-10 text-indigo-600 mb-4" />
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                API Reference
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Integrate CloudDesk into your applications
+              </p>
+              <Button variant="ghost" className="p-0 h-auto">
+                View API docs →
+              </Button>
+            </Card>
+          </Link>
 
-          <Card className="p-6 hover:border-indigo-300 transition-colors cursor-pointer">
-            <HelpCircle className="w-10 h-10 text-indigo-600 mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              FAQ
-            </h3>
-            <p className="text-gray-600 mb-4">
-              Answers to commonly asked questions
-            </p>
-            <Button variant="ghost" className="p-0 h-auto">
-              Browse FAQ →
-            </Button>
-          </Card>
+          <Link to="/docs/faq">
+            <Card className="p-6 hover:border-indigo-300 transition-colors cursor-pointer">
+              <HelpCircle className="w-10 h-10 text-indigo-600 mb-4" />
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                FAQ
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Answers to commonly asked questions
+              </p>
+              <Button variant="ghost" className="p-0 h-auto">
+                Browse FAQ →
+              </Button>
+            </Card>
+          </Link>
         </div>
 
         {/* Main Documentation */}
@@ -299,48 +351,103 @@ export function Documentation() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="p-6 text-center">
-              <Book className="w-12 h-12 text-indigo-600 mx-auto mb-4" />
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <Card className="p-8 text-center hover:shadow-lg transition-shadow">
+              <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Book className="w-8 h-8 text-indigo-600" />
+              </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 Knowledge Base
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-sm text-gray-600 mb-6">
                 Browse our comprehensive guides and tutorials
               </p>
-              <Button variant="ghost" className="mx-auto">
-                Browse articles
-              </Button>
+              <Link to="/docs/getting-started">
+                <Button variant="secondary" size="sm" className="w-full">
+                  Browse articles
+                </Button>
+              </Link>
             </Card>
 
-            <Card className="p-6 text-center">
-              <HelpCircle className="w-12 h-12 text-indigo-600 mx-auto mb-4" />
+            <Card className="p-8 text-center hover:shadow-lg transition-shadow">
+              <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <HelpCircle className="w-8 h-8 text-indigo-600" />
+              </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 Community Forum
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-sm text-gray-600 mb-6">
                 Get help from other CloudDesk users
               </p>
-              <Button variant="ghost" className="mx-auto">
-                Visit forum
-              </Button>
+              <Link to="/community">
+                <Button variant="secondary" size="sm" className="w-full">
+                  Visit forum
+                </Button>
+              </Link>
             </Card>
 
-            <Card className="p-6 text-center">
-              <ExternalLink className="w-12 h-12 text-indigo-600 mx-auto mb-4" />
+            <Card className="p-8 text-center hover:shadow-lg transition-shadow">
+              <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <ExternalLink className="w-8 h-8 text-indigo-600" />
+              </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 Contact Support
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-sm text-gray-600 mb-6">
                 Reach out to our support team directly
               </p>
-              <Button variant="ghost" className="mx-auto">
-                Contact us
-              </Button>
+              <Link to="/support">
+                <Button variant="secondary" size="sm" className="w-full">
+                  Contact us
+                </Button>
+              </Link>
             </Card>
           </div>
+
+          {/* What's Next */}
+          <Card className="p-12 bg-gradient-to-br from-indigo-50 to-white border-indigo-100">
+            <h2 className="text-3xl font-semibold text-gray-900 mb-12 text-center">
+              What's Next?
+            </h2>
+            <div className="grid md:grid-cols-3 gap-12">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  Explore Features
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Learn about snapshots, backups, and team collaboration.
+                </p>
+                <Link to="/docs" className="text-indigo-600 hover:text-indigo-700 font-medium">
+                  Read Documentation →
+                </Link>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  Join Community
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Get help from other CloudDesk users and share tips.
+                </p>
+                <Link to="/community" className="text-indigo-600 hover:text-indigo-700 font-medium">
+                  Visit Forum →
+                </Link>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  Need Help?
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Our support team is here to help you succeed.
+                </p>
+                <Link to="/support" className="text-indigo-600 hover:text-indigo-700 font-medium">
+                  Contact Support →
+                </Link>
+              </div>
+            </div>
+          </Card>
         </div>
       </section>
+      </div>
     </div>
   );
 }
@@ -425,3 +532,4 @@ function ConnectionTabs() {
     </>
   );
 }
+

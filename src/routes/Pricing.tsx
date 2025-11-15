@@ -1,10 +1,56 @@
+import { Link } from 'react-router-dom';
 import { Check } from 'lucide-react';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 
 export function Pricing() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
+      {/* Top Navigation */}
+      <nav className="sticky top-0 z-40 bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-8 lg:px-16">
+          <div className="flex items-center justify-between h-16">
+            {/* Left: Logo + Brand */}
+            <div className="flex items-center gap-8">
+              <Link to="/">
+                <img src="/logo-clouddesk.png" alt="CloudDesk EDU" className="w-12 h-12 object-contain hover:opacity-80 transition-opacity" />
+              </Link>
+              
+              {/* Center: Navigation Links */}
+              <div className="hidden md:flex items-center gap-6">
+                <Link to="/product" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                  Product
+                </Link>
+                <Link to="/use-cases" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                  Use Cases
+                </Link>
+                <Link to="/pricing" className="text-sm font-medium text-indigo-600 transition-colors">
+                  Pricing
+                </Link>
+                <Link to="/docs" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                  Documentation
+                </Link>
+              </div>
+            </div>
+
+            {/* Right: Actions */}
+            <div className="flex items-center gap-3">
+              <Link to="/dashboard">
+                <Button variant="ghost" size="sm">
+                  Sign In
+                </Button>
+              </Link>
+              <Link to="/dashboard">
+                <Button variant="primary" size="sm">
+                  Get Started
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-8 py-20">
@@ -258,6 +304,7 @@ export function Pricing() {
           </Button>
         </Card>
       </section>
+      </div>
     </div>
   );
 }

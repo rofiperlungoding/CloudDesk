@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useInstancesDemo } from '../hooks/useInstancesDemo';
 import { buildUsage } from '../data/usage';
 import { IMAGE_PRESETS } from '../data/images';
-import { REGION_NAMES, GPU_NAMES } from '../data/types';
+import { REGION_NAMES, GPU_SPECS } from '../data/types';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
@@ -251,7 +251,7 @@ export default function InstanceDetail() {
                 <div className="flex-1">
                   <dt className="text-sm font-medium text-gray-500 mb-1">Graphics (GPU)</dt>
                   <dd className="text-base font-medium text-gray-900">
-                    {GPU_NAMES[instance.gpu]}
+                    {GPU_SPECS[instance.gpu].name}
                   </dd>
                 </div>
               </div>

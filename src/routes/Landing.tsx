@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
+import { GraduationCap, Users, Briefcase, Zap, Settings, DollarSign, Globe } from 'lucide-react';
 
 export default function Landing() {
   return (
@@ -12,19 +13,17 @@ export default function Landing() {
           <div className="flex items-center justify-between h-16">
             {/* Left: Logo + Brand */}
             <div className="flex items-center gap-8">
-              <Link to="/" className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">CD</span>
-                </div>
-                <span className="text-lg font-semibold text-gray-900">
-                  CloudDesk EDU
-                </span>
+              <Link to="/">
+                <img src="/logo-clouddesk.png" alt="CloudDesk EDU" className="w-12 h-12 object-contain hover:opacity-80 transition-opacity" />
               </Link>
               
               {/* Center: Navigation Links */}
               <div className="hidden md:flex items-center gap-6">
                 <Link to="/product" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
                   Product
+                </Link>
+                <Link to="/use-cases" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                  Use Cases
                 </Link>
                 <Link to="/pricing" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
                   Pricing
@@ -174,8 +173,8 @@ export default function Landing() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Students Card */}
             <Card className="p-8 hover:shadow-lg hover:border-gray-300 transition-all">
-              <div className="w-14 h-14 bg-indigo-50 rounded-full flex items-center justify-center mb-6">
-                <span className="text-2xl">🎓</span>
+              <div className="w-14 h-14 bg-indigo-50 rounded-lg flex items-center justify-center mb-6">
+                <GraduationCap className="w-7 h-7 text-indigo-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
                 Students
@@ -188,8 +187,8 @@ export default function Landing() {
 
             {/* Lecturers Card */}
             <Card className="p-8 hover:shadow-lg hover:border-gray-300 transition-all">
-              <div className="w-14 h-14 bg-indigo-50 rounded-full flex items-center justify-center mb-6">
-                <span className="text-2xl">👥</span>
+              <div className="w-14 h-14 bg-indigo-50 rounded-lg flex items-center justify-center mb-6">
+                <Users className="w-7 h-7 text-indigo-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
                 Lecturers & Educators
@@ -203,8 +202,8 @@ export default function Landing() {
 
             {/* Professionals Card */}
             <Card className="p-8 hover:shadow-lg hover:border-gray-300 transition-all">
-              <div className="w-14 h-14 bg-indigo-50 rounded-full flex items-center justify-center mb-6">
-                <span className="text-2xl">💼</span>
+              <div className="w-14 h-14 bg-indigo-50 rounded-lg flex items-center justify-center mb-6">
+                <Briefcase className="w-7 h-7 text-indigo-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
                 Professionals & Engineers
@@ -230,8 +229,8 @@ export default function Landing() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
             {/* Benefit 1 */}
             <div className="text-center">
-              <div className="w-8 h-8 bg-indigo-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                <span className="text-white text-lg">⚡</span>
+              <div className="w-10 h-10 bg-indigo-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <Zap className="w-5 h-5 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 Instant Access
@@ -244,8 +243,8 @@ export default function Landing() {
 
             {/* Benefit 2 */}
             <div className="text-center">
-              <div className="w-8 h-8 bg-indigo-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                <span className="text-white text-lg">⚙️</span>
+              <div className="w-10 h-10 bg-indigo-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <Settings className="w-5 h-5 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 Flexible Resources
@@ -258,8 +257,8 @@ export default function Landing() {
 
             {/* Benefit 3 */}
             <div className="text-center">
-              <div className="w-8 h-8 bg-indigo-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                <span className="text-white text-lg">💰</span>
+              <div className="w-10 h-10 bg-indigo-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <DollarSign className="w-5 h-5 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 Transparent Pricing
@@ -272,8 +271,8 @@ export default function Landing() {
 
             {/* Benefit 4 */}
             <div className="text-center">
-              <div className="w-8 h-8 bg-indigo-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                <span className="text-white text-lg">🌐</span>
+              <div className="w-10 h-10 bg-indigo-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <Globe className="w-5 h-5 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 Work Anywhere
@@ -314,13 +313,8 @@ export default function Landing() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             {/* Branding */}
             <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">CD</span>
-                </div>
-                <span className="text-lg font-semibold text-white">
-                  CloudDesk EDU
-                </span>
+              <div className="mb-4">
+                <img src="/logo-clouddesk.png" alt="CloudDesk EDU" className="w-12 h-12 object-contain" />
               </div>
               <p className="text-sm">Cloud desktops for everyone</p>
             </div>
@@ -330,19 +324,19 @@ export default function Landing() {
               <h4 className="text-sm font-semibold text-white mb-3">Product</h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="/product" className="hover:text-white transition-colors">
                     Features
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="/pricing" className="hover:text-white transition-colors">
                     Pricing
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="/docs" className="hover:text-white transition-colors">
                     Documentation
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -352,19 +346,19 @@ export default function Landing() {
               <h4 className="text-sm font-semibold text-white mb-3">Company</h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="/about" className="hover:text-white transition-colors">
                     About
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Blog
-                  </a>
+                  <Link to="/community" className="hover:text-white transition-colors">
+                    Community
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="/contact" className="hover:text-white transition-colors">
                     Contact
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -374,26 +368,26 @@ export default function Landing() {
               <h4 className="text-sm font-semibold text-white mb-3">Legal</h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="/privacy" className="hover:text-white transition-colors">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="/terms" className="hover:text-white transition-colors">
                     Terms of Service
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link to="/security" className="hover:text-white transition-colors">
                     Security
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
           </div>
 
           <div className="pt-8 border-t border-gray-800 text-sm text-center md:text-left">
-            © 2024 CloudDesk EDU. All rights reserved.
+            © 2025 CloudDesk EDU. All rights reserved.
           </div>
         </div>
       </footer>

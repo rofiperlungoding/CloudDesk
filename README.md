@@ -29,6 +29,12 @@ CloudDesk EDU is a modern, enterprise-grade SaaS platform that provides instant 
 - **Session Scheduling**: Automatic start/stop based on class schedules
 - **Cost Control**: Set budgets and prevent runaway spending
 
+### 📚 Comprehensive Documentation
+- **API Reference**: Complete REST API documentation with 14+ endpoints
+- **Interactive FAQ**: 28 questions across 7 categories with accordion UI
+- **Getting Started Guide**: Step-by-step tutorials for new users
+- **Integration Guides**: LMS, SSO, and third-party integrations
+
 ### 🎨 Enterprise Design System
 - **Professional UI**: Clean, confident interface built for serious work
 - **Accessibility First**: WCAG AA compliant, keyboard navigable, screen reader friendly
@@ -210,7 +216,17 @@ import { Badge } from '@/components/ui/Badge';
 ### Public Routes
 
 - **`/`** - Landing page with product overview and CTAs
-- **`/login`** - Authentication (demo: auto-authenticated)
+- **`/product`** - Product features and benefits
+- **`/pricing`** - Pricing plans and comparison
+- **`/use-cases`** - Use case examples and testimonials
+- **`/docs`** - Documentation hub
+- **`/docs/getting-started`** - Getting started guide
+- **`/docs/api`** - API reference documentation
+- **`/docs/faq`** - Frequently asked questions (card layout)
+- **`/docs/faq-accordion`** - FAQ with interactive accordion
+- **`/community`** - Community forum with discussions
+- **`/support`** - Contact support page with multiple channels
+- **`/security`** - Security features and compliance information
 
 ### Authenticated Routes
 
@@ -283,10 +299,17 @@ The project maintains high code quality standards:
 
 Comprehensive documentation is available in the `docs/` directory:
 
+### Design & Components
 1. **[Design System Foundation](docs/design-system-foundation.md)** - Colors, typography, spacing, elevation
 2. **[Component Library](docs/component-library-spec.md)** - Complete component specifications
 3. **[App Shell](docs/app-shell-spec.md)** - Navigation and layout structure
 4. **[UI Consistency Checklist](docs/ui-consistency-checklist.md)** - Quality assurance guidelines
+
+### User Documentation
+- **[API Reference](/docs/api)** - Complete REST API documentation with 14+ endpoints
+- **[FAQ](/docs/faq)** - 28 frequently asked questions across 7 categories
+- **[Getting Started](/docs/getting-started)** - Quick start guide for new users
+- **[Quick Reference](docs/QUICK-REFERENCE.md)** - Developer quick reference guide
 
 ### Page Specifications
 

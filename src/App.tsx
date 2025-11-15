@@ -3,7 +3,20 @@ import { AppShell } from './components/Layout/AppShell';
 import Landing from './routes/Landing';
 import { Product } from './routes/Product';
 import { Pricing } from './routes/Pricing';
+import { UseCases } from './routes/UseCases';
 import { Documentation } from './routes/Documentation';
+import { GettingStarted } from './routes/GettingStarted';
+import { APIReference } from './routes/APIReference';
+import { FAQ } from './routes/FAQ';
+import { FAQAccordion } from './routes/FAQAccordion';
+import { Community } from './routes/Community';
+import { Support } from './routes/Support';
+import { Security } from './routes/Security';
+import { InteractiveDemo } from './routes/InteractiveDemo';
+import { About } from './routes/About';
+import { Contact } from './routes/Contact';
+import { PrivacyPolicy } from './routes/PrivacyPolicy';
+import { TermsOfService } from './routes/TermsOfService';
 import Dashboard from './routes/Dashboard';
 import CreateInstance from './routes/CreateInstance';
 import InstanceDetail from './routes/InstanceDetail';
@@ -17,7 +30,20 @@ function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/product" element={<Product />} />
       <Route path="/pricing" element={<Pricing />} />
+      <Route path="/use-cases" element={<UseCases />} />
       <Route path="/docs" element={<Documentation />} />
+      <Route path="/docs/getting-started" element={<GettingStarted />} />
+      <Route path="/docs/api" element={<APIReference />} />
+      <Route path="/docs/faq" element={<FAQ />} />
+      <Route path="/docs/faq-accordion" element={<FAQAccordion />} />
+      <Route path="/community" element={<Community />} />
+      <Route path="/support" element={<Support />} />
+      <Route path="/security" element={<Security />} />
+      <Route path="/interactive-demo" element={<InteractiveDemo />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/privacy" element={<PrivacyPolicy />} />
+      <Route path="/terms" element={<TermsOfService />} />
       
       {/* Application routes with sidebar */}
       <Route element={<AppShell showSidebar={true} />}>

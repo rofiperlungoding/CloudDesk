@@ -6,11 +6,18 @@
  */
 
 export const colors = {
-  // Primary accent
+  // Primary accent - teal for modern corporate feel
+  primary: {
+    50: '#CCFBF1',
+    600: '#0F766E',
+    700: '#115E59',
+  },
+  
+  // Keep indigo for backwards compatibility, map to teal
   indigo: {
-    50: '#EEF2FF',
-    600: '#4F46E5',
-    700: '#4338CA',
+    50: '#CCFBF1',
+    600: '#0F766E',
+    700: '#115E59',
   },
   
   // Neutral grays

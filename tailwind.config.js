@@ -7,19 +7,33 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Primary accent color - indigo for professional, trustworthy feel
+        // Primary accent color - teal for professional, modern corporate feel
+        primary: {
+          25: '#F0FDFA',
+          50: '#CCFBF1',
+          100: '#99F6E4',
+          200: '#5EEAD4',
+          300: '#2DD4BF',
+          400: '#14B8A6',
+          500: '#0D9488',
+          600: '#0F766E', // Primary accent
+          700: '#115E59', // Primary accent hover
+          800: '#134E4A',
+          900: '#042F2E',
+        },
+        // Keep indigo for backwards compatibility, map to teal
         indigo: {
-          25: '#F5F7FF',
-          50: '#EEF2FF',
-          100: '#E0E7FF',
-          200: '#C7D2FE',
-          300: '#A5B4FC',
-          400: '#818CF8',
-          500: '#6366F1',
-          600: '#4F46E5', // Primary accent
-          700: '#4338CA', // Primary accent hover
-          800: '#3730A3',
-          900: '#312E81',
+          25: '#F0FDFA',
+          50: '#CCFBF1',
+          100: '#99F6E4',
+          200: '#5EEAD4',
+          300: '#2DD4BF',
+          400: '#14B8A6',
+          500: '#0D9488',
+          600: '#0F766E', // Map to primary
+          700: '#115E59', // Map to primary hover
+          800: '#134E4A',
+          900: '#042F2E',
         },
         // Neutral grays for backgrounds, surfaces, borders, text
         gray: {
