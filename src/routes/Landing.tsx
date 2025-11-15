@@ -18,7 +18,7 @@ export default function Landing() {
             {/* Left: Logo + Brand */}
             <div className="flex items-center gap-4 sm:gap-8">
               <Link to="/">
-                <img src="/logo-clouddesk.png" alt="CloudDesk EDU" className="w-10 h-10 sm:w-12 sm:h-12 object-contain hover:opacity-80 transition-opacity" />
+                <img src="/logo-clouddesk.png" alt="CloudDesk EDU" className="h-8 sm:h-9 w-auto object-contain hover:opacity-80 transition-opacity" />
               </Link>
               
               {/* Center: Navigation Links */}
@@ -318,7 +318,7 @@ export default function Landing() {
             {/* Branding */}
             <div>
               <div className="mb-4">
-                <img src="/logo-clouddesk.png" alt="CloudDesk EDU" className="w-12 h-12 object-contain" />
+                <img src="/logo-clouddesk.png" alt="CloudDesk EDU" className="h-9 w-auto object-contain" />
               </div>
               <p className="text-sm">Cloud desktops for everyone</p>
             </div>

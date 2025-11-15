@@ -73,10 +73,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
     >
       <div className="flex flex-col h-full">
         {/* Logo & Brand */}
-        <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200">
-          <Link to="/dashboard" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <img src="/logo-clouddesk.png" alt="CloudDesk EDU" className="w-9 h-9 object-contain" />
-            <span className="text-base font-semibold text-gray-900">CloudDesk</span>
+        <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200">
+          <Link to="/dashboard" className="flex items-center justify-center hover:opacity-80 transition-opacity flex-1">
+            <img src="/logo-clouddesk.png" alt="CloudDesk EDU" className="h-11 w-auto object-contain" />
           </Link>
           
           {/* Close button - only visible on mobile/tablet */}
