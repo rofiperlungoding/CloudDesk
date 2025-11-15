@@ -1,10 +1,99 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Users, Code, Cpu, Palette, Database, BookOpen, Briefcase } from 'lucide-react';
+import { Users, Code, Cpu, Palette, Database, BookOpen, Briefcase, X, Check } from 'lucide-react';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 
+type PresetType = 'development' | 'engineering' | 'data-science' | null;
+
+const presetDetails = {
+  development: {
+    title: 'Development Preset',
+    subtitle: 'Optimized for Programming & Software Development',
+    specs: {
+      cpu: '4 vCPU',
+      ram: '8 GB',
+      storage: '50 GB SSD',
+      gpu: 'None'
+    },
+    software: [
+      'VS Code with extensions',
+      'Git & GitHub CLI',
+      'Docker & Docker Compose',
+      'Node.js, Python, Java, Go',
+      'PostgreSQL & MongoDB',
+      'Nginx web server'
+    ],
+    features: [
+      'Pre-configured development environment',
+      'All major programming languages',
+      'Database servers ready to use',
+      'Container support for microservices',
+      'Port forwarding for web development',
+      'Automatic daily backups'
+    ],
+    pricing: '$0.15/hour when running'
+  },
+  engineering: {
+    title: 'Engineering Preset',
+    subtitle: 'GPU-Accelerated for CAD & Simulation',
+    specs: {
+      cpu: '8 vCPU',
+      ram: '32 GB',
+      storage: '100 GB SSD',
+      gpu: 'NVIDIA T4 (16 GB)'
+    },
+    software: [
+      'AutoCAD 2024',
+      'SolidWorks Premium',
+      'MATLAB & Simulink',
+      'ANSYS Workbench',
+      'Fusion 360',
+      'FreeCAD'
+    ],
+    features: [
+      'Professional GPU acceleration',
+      'Real-time rendering support',
+      'Complex simulation capabilities',
+      'Large assembly handling',
+      'Collaborative design tools',
+      'Project file versioning'
+    ],
+    pricing: '$1.20/hour when running'
+  },
+  'data-science': {
+    title: 'Data Science Preset',
+    subtitle: 'High-Performance ML & Analytics',
+    specs: {
+      cpu: '8 vCPU',
+      ram: '64 GB',
+      storage: '200 GB SSD',
+      gpu: 'NVIDIA A100 (40 GB)'
+    },
+    software: [
+      'Jupyter Lab & Notebooks',
+      'Python with Anaconda',
+      'TensorFlow & PyTorch',
+      'scikit-learn & pandas',
+      'R & RStudio',
+      'Apache Spark'
+    ],
+    features: [
+      'GPU-accelerated model training',
+      'Large dataset processing',
+      'Distributed computing support',
+      'Pre-installed ML libraries',
+      'Notebook collaboration',
+      'Experiment tracking tools'
+    ],
+    pricing: '$2.50/hour when running'
+  }
+};
+
 export function UseCases() {
+  const [selectedPreset, setSelectedPreset] = React.useState<PresetType>(null);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Top Navigation */}
@@ -127,7 +216,11 @@ export function UseCases() {
               </div>
             </div>
 
-            <Button variant="secondary" className="w-full">
+            <Button 
+              variant="secondary" 
+              className="w-full"
+              onClick={() => setSelectedPreset('development')}
+            >
               View Development Preset
             </Button>
           </Card>
@@ -180,7 +273,11 @@ export function UseCases() {
               </div>
             </div>
 
-            <Button variant="secondary" className="w-full">
+            <Button 
+              variant="secondary" 
+              className="w-full"
+              onClick={() => setSelectedPreset('engineering')}
+            >
               View Engineering Preset
             </Button>
           </Card>
@@ -233,7 +330,11 @@ export function UseCases() {
               </div>
             </div>
 
-            <Button variant="secondary" className="w-full">
+            <Button 
+              variant="secondary" 
+              className="w-full"
+              onClick={() => setSelectedPreset('data-science')}
+            >
               View Data Science Preset
             </Button>
           </Card>
@@ -465,6 +566,126 @@ export function UseCases() {
         </Card>
       </section>
       </div>
+
+      {/* Preset Modal */}
+      {selectedPreset && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" onClick={() => setSelectedPreset(null)}>
+          <div className="bg-white rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            {/* Header */}
+            <div className="sticky top-0 bg-white border-b border-gray-200 px-8 py-6 flex items-start justify-between">
+              <div>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-1">
+                  {presetDetails[selectedPreset].title}
+                </h2>
+                <p className="text-gray-600">
+                  {presetDetails[selectedPreset].subtitle}
+                </p>
+              </div>
+              <button
+                onClick={() => setSelectedPreset(null)}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <X className="w-5 h-5 text-gray-500" />
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="px-8 py-6 space-y-8">
+              {/* Specifications */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  Hardware Specifications
+                </h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <p className="text-sm text-gray-500 mb-1">CPU</p>
+                    <p className="text-lg font-semibold text-gray-900">
+                      {presetDetails[selectedPreset].specs.cpu}
+                    </p>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <p className="text-sm text-gray-500 mb-1">RAM</p>
+                    <p className="text-lg font-semibold text-gray-900">
+                      {presetDetails[selectedPreset].specs.ram}
+                    </p>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <p className="text-sm text-gray-500 mb-1">Storage</p>
+                    <p className="text-lg font-semibold text-gray-900">
+                      {presetDetails[selectedPreset].specs.storage}
+                    </p>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <p className="text-sm text-gray-500 mb-1">GPU</p>
+                    <p className="text-lg font-semibold text-gray-900">
+                      {presetDetails[selectedPreset].specs.gpu}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Pre-installed Software */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  Pre-installed Software
+                </h3>
+                <div className="grid md:grid-cols-2 gap-3">
+                  {presetDetails[selectedPreset].software.map((item, index) => (
+                    <div key={index} className="flex items-center gap-2 text-gray-700">
+                      <Check className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Features */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  Key Features
+                </h3>
+                <div className="space-y-3">
+                  {presetDetails[selectedPreset].features.map((feature, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <div className="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Check className="w-4 h-4 text-indigo-600" />
+                      </div>
+                      <span className="text-gray-700">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Pricing */}
+              <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-6">
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="text-3xl font-semibold text-gray-900">
+                    {presetDetails[selectedPreset].pricing.split('/')[0]}
+                  </span>
+                  <span className="text-gray-600">
+                    /{presetDetails[selectedPreset].pricing.split('/')[1]}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-600 mb-4">
+                  Only pay for compute time. Storage charged separately at $0.10/GB/month.
+                </p>
+                <div className="flex gap-3">
+                  <Link to="/create" className="flex-1">
+                    <Button variant="primary" className="w-full">
+                      Create Desktop
+                    </Button>
+                  </Link>
+                  <Link to="/pricing" className="flex-1">
+                    <Button variant="secondary" className="w-full">
+                      View Pricing
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
