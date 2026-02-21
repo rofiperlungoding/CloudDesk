@@ -1,6 +1,9 @@
 {
-  "name": "clouddesk-edu",
-  "private": true,
+  "name": "@rofiperlungoding/clouddesk-edu",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "private": false,
   "version": "1.0.0",
   "description": "Enterprise-grade cloud desktop platform for students, educators, and professionals with GCP Compute Engine integration and WebAuthn security.",
   "type": "module",
