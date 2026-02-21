@@ -33,3 +33,6 @@ server/.env
 
 # Kiro IDE
 .kiro
+
+# Agent context
+.agent
