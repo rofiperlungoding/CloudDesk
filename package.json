@@ -1,8 +1,23 @@
 {
   "name": "clouddesk-edu",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Enterprise-grade cloud desktop platform for students, educators, and professionals with GCP Compute Engine integration and WebAuthn security.",
   "type": "module",
+  "author": "rofiperlungoding <opikopi32@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rofiperlungoding/CloudDesk.git"
+  },
+  "keywords": [
+    "cloud-desktop",
+    "gcp",
+    "saas",
+    "webauthn",
+    "react",
+    "enterprise"
+  ],
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -29,6 +44,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "jsdom": "^27.4.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.18",
     "typescript": "~5.9.3",
